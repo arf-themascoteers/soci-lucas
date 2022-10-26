@@ -26,10 +26,12 @@ class LucasMachine(nn.Module):
             nn.Linear(992,1)
         )
         self.fc = nn.Sequential(
-            nn.Linear(4200, 1)
+            nn.Linear(4, 10),
+            nn.LeakyReLU(),
+            nn.Linear(10,1)
         )
 
-    def forward(self, x, aux):
+    def forward(self, x):
         #x = x.reshape(x.shape[0],1,x.shape[1])
         #x = self.band_net(x)
         #x = torch.cat((x,aux), dim=1)
