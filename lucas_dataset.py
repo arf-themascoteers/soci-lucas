@@ -10,18 +10,25 @@ from sklearn import model_selection
 class LucasDataset(Dataset):
     def __init__(self, is_train=True):
         self.is_train = is_train
-        self.csv_file_location = "data/lucas.csv"
+        self.csv_file_location = "data/lucas-4.csv"
         self.scaler = None
         df = pd.read_csv(self.csv_file_location)
         train, test = model_selection.train_test_split(df, test_size=0.2)
         df = self._preprocess(df)
-        inputs = torch.tensor(df[df.columns[1:4]].values, dtype=torch.float32)
+        inputs = torch.tensor(df[df.columns[1:5]].values, dtype=torch.float32)
         blue = inputs[:,0]
         green = inputs[:,1]
         red = inputs[:,2]
+        nir = inputs[:,3]
         soci = blue/(red * green)
         soci = soci.reshape(-1,1)
-        self.x = torch.cat((inputs, soci), dim=1)
+        #soci_s = soci * soci
+        #soci_sr = torch.sqrt(soci)
+        ndvi = (nir-red)/(nir+red)
+        ndvi = ndvi.reshape(-1,1)
+        sn = ndvi / soci
+        inv_soci = 1/soci
+        self.x = torch.cat((ndvi, inputs), dim=1)
         self.y = torch.tensor(df[df.columns[0]].values, dtype=torch.float32)
 
     def _preprocess(self, df):
@@ -29,7 +36,7 @@ class LucasDataset(Dataset):
         return df
 
     def __scale__(self, df):
-        df, self.scaler  = self.__scale_col__(df, "oc")
+        df, self.scaler  = self.__scale_col__(df, "soc")
         return df
 
     def __scale_col__(self, df, col):

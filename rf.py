@@ -18,7 +18,6 @@ def train():
     end = time.time()
     required = end - start
     print(f"Train seconds: {required}")
-    print(f"Depth: {reg.tree_.max_depth}")
 
     pickle.dump(reg, open("models/rf","wb"))
 
