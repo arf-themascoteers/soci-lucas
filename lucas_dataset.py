@@ -9,7 +9,8 @@ import math
 
 
 class LucasDataset(Dataset):
-    def __init__(self, is_train=True):
+    def __init__(self, is_train=True, power = 1):
+        self.power = 1
         self.is_train = is_train
         self.csv_file_location = "data/lucas-many.csv"
         self.scaler = None
@@ -126,13 +127,16 @@ class LucasDataset(Dataset):
         # my_bi14 = ( (green546**20) + (blue478**20) - (red659**20))**(1/20)
         # my_bi14 = my_bi14.reshape(-1,1)
         #
-        my_bi15 = ( (green546**40) + (blue478**40) - (red659**40))**(1/40)
-        my_bi15 = my_bi15.reshape(-1,1)
+        # my_bi15 = ( (green546**40) + (blue478**40) - (red659**40))**(1/40)
+        # my_bi15 = my_bi15.reshape(-1,1)
 
-        my_bi16 = ( (green546**50) + (blue478**80) - (red659**80))**(1/80)
-        my_bi16 = my_bi16.reshape(-1,1)
+        # my_bi16 = ( (green546**50) + (blue478**80) - (red659**80))**(1/80)
+        # my_bi16 = my_bi16.reshape(-1,1)
 
-        self.x = my_bi15
+        new_soci = ( (green546**power) + (blue478**power) - (red659**power))**(1/power)
+        new_soci = new_soci.reshape(-1,1)
+
+        self.x = new_soci
         self.y = soc
 
     def _preprocess(self, df):
