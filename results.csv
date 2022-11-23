@@ -1,0 +1,9 @@
+Index	R2	Formula	Comment
+SOCI	0.204	Blue/(Red*Green)	
+NDVI	0.228	(NIR-Red)/(NIR+Red)	
+1/SOC	0.354	(Red*Green)/Blue	
+"Concat: NDVI, 1/SOC"	0.482		
+NDVI/SOCI	0.551	((NIR-Red)*Red*Green) / ((NIR+Red)*Blue )	Synergy? Index6 > Index5 
+"Concat: 1/SOC, NIR, Red, Green, Blue"	0.547		
+"Concat: NDVI, NIR, Red, Green, Blue"	0.573		
+"Concat: NDVI, 1/SOC, NIR, Red, Green, Blue"	0.589		

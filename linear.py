@@ -14,6 +14,7 @@ def train():
     x = ds.get_x()
     y = ds.get_y()
     start = time.time()
+    print("Train started")
     reg = LinearRegression().fit(x,y)
 
     print("Train done")
