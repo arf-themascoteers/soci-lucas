@@ -14,18 +14,18 @@ def train():
     x = ds.get_x()
     y = ds.get_y()
     start = time.time()
-    print("Train started")
+    #print("Train started")
     reg = LinearRegression().fit(x,y)
 
-    print("Train done")
+    #print("Train done")
     end = time.time()
     required = end - start
-    print(f"Train seconds: {required}")
+    #print(f"Train seconds: {required}")
+    return reg
+    #pickle.dump(reg, open("models/linear3","wb"))
 
-    pickle.dump(reg, open("models/linear3","wb"))
-
-def test():
-    reg = pickle.load(open('models/linear3', 'rb'))
+def test(reg):
+    #reg = pickle.load(open('models/linear3', 'rb'))
     ds = lucas_dataset.LucasDataset(is_train=False)
     x = ds.get_x()
     y = ds.get_y()
@@ -33,9 +33,9 @@ def test():
     y_hat = reg.predict(x)
     end = time.time()
     required = end - start
-    print(f"Test seconds: {required}")
+    #print(f"Test seconds: {required}")
     print("R2",r2_score(y, y_hat))
-    print("MSE",mean_squared_error(y, y_hat))
+    #print("MSE",mean_squared_error(y, y_hat))
 
 def dump():
     reg = pickle.load(open('models/linear2', 'rb'))
@@ -48,6 +48,6 @@ def dump():
         b = z+11
         print(f"{b},",end="")
     #
-train()
-test()
+reg = train()
+test(reg)
 #dump()
